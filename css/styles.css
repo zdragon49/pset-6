@@ -1,5 +1,5 @@
 body {
-  background-color:green;
+  background-image:url("../images/picture.jpg");
 }
 
 h1 {
@@ -9,15 +9,4 @@ h1 {
 }
 h2 {
   text-align: center;
-}
-table {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  border: red;
-  background-color: blue;
-}
-th {
-  color: none;
-  border: none;
 }
