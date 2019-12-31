@@ -1,3 +1,7 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
 body {
   background-image:url("../images/picture.jpg");
 }
@@ -7,6 +11,35 @@ h1 {
   font-weight: bold;
   text-align: center;
 }
-h2 {
-  text-align: center;
+table {
+  margin-left: auto;
+  margin-right:auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#user-input {
+  font-family: Tahoma,sans-serif;
+  font-size: 36px;
+
+  background-color: purple;
+  border: 4px solid;
+  border-color: green;
+}
+
+#add-input {
+  font-size: 24px;
+  color: white;
+
+  background-color: black;
+  border: 4px solid;
+  border-color: orange;
+}
+
+#add-input:hover {
+  transform: scale(1.1);
+
+  border: 0px;
+  background-color: inherit;
+
 }
