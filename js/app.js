@@ -11,12 +11,12 @@ let completionChanged;
 let itemRemoved;
 
 window.onload = function() {
-    document.getElementById("task-table").onclick = runModificationFunctions;
+    document.getElementById("task-table").onclick = functionMod;
 
     document.getElementById("add-input").onclick = createTask;
 }
 
-const runModificationFunctions = function() {
+const functionMod = function() {
     itemImportant();
     completedItem();
     goneItem();
@@ -25,28 +25,28 @@ const runModificationFunctions = function() {
 const itemImportant = function() {
     priorityChanged = false;
 
-    for (let x = 0; x < priorityButtons.length; x++) {
-        priorityButtons[x].onclick = function() {
-            if (toDoList[x].prioritized === false) {
-                const elementToPrioritize = elements[x];
-                priorityButtons[x].style.color = "red";
+    for (let i = 0; i < priorityButtons.length; i++) {
+        priorityButtons[i].onclick = function() {
+            if (items[i].prioritized === false) {
+                const elementToPrioritize = elements[i];
+                priorityButtons[i].style.color = "red";
                 elements[0].before(elementToPrioritize);
-                toDoList[x].prioritized = true;
+                items[i].prioritized = true;
 
-                const objectToMove = toDoList[x];
-                toDoList.splice(x, 1);
-                toDoList.unshift(objectToMove);
+                const objectToMove = items[i];
+                items.splice(i, 1);
+                items.unshift(objectToMove);
                 priorityChanged = true;
             }
-            else if (toDoList[x].prioritized) {
-                const elementToPrioritize = elements[x];
-                priorityButtons[x].style.color = "black";
+            else if (items[i].prioritized) {
+                const elementToPrioritize = elements[i];
+                priorityButtons[i].style.color = "black";
                 elements[elements.length - 1].after(elementToPrioritize);
-                toDoList[x].prioritized = false;
+                items[i].prioritized = false;
 
-                const objectToMove = toDoList[x];
-                toDoList.splice(x, 1);
-                toDoList.push(objectToMove);
+                const objectToMove = items[i];
+                items.splice(i, 1);
+                items.push(objectToMove);
                 priorityChanged = true;
             }
         };
@@ -109,33 +109,41 @@ const createTask = function() {
             htmlPriorityButton: null,
             htmlText: null,
             htmlCompletedButton: null,
+            htmlCheckImage: null,
             htmlRemoveButton: null
         }
 
-
         toDoList.push(object);
 
-        let i = toDoList.indexOf(object);
+        let x = toDoList.indexOf(object);
 
-        toDoList[i].htmlRow = document.createElement("tr");
-        toDoList[i].htmlRow.setAttribute("class", "table-row");
-        document.getElementById("task-table").append(toDoList[i].htmlRow);
+        toDoList[x].htmlRow = document.createElement("tr");
+        toDoList[x].htmlRow.setAttribute("class", "table-row");
+        document.getElementById("task-table").append(toDoList[x].htmlRow);
 
-       toDoList[i].htmlPriorityButton = document.createElement("td");
-        toDoList[i].htmlPriorityButton.setAttribute("class", "priority-button");
-        toDoList[i].htmlPriorityButton.innerHTML = "!";
-        elements[i].append(toDoList[i].htmlPriorityButton);
+        toDoList[x].htmlPriorityButton = document.createElement("td");
+        toDoList[x].htmlPriorityButton.setAttribute("class", "priority-button");
+        toDoList[x].htmlPriorityButton.innerHTML = "!";
+        elements[x].append(toDoList[x].htmlPriorityButton);
 
-        toDoList[i].htmlText = document.createElement("td");
-        toDoList[i].htmlText.innerHTML = toDoList[i].task;
-        toDoList[i].htmlText.setAttribute("class", "completed-button");
-        elements[i].append(toDoList[i].htmlText);
+        toDoList[x].htmlText = document.createElement("td");
+        toDoList[x].htmlText.innerHTML = toDoList[x].task;
+        toDoList[x].htmlText.setAttribute("class", "text");
+        elements[x].append(toDoList[x].htmlText);
 
+        toDoList[x].htmlCompletedButton = document.createElement("td");
+        toDoList[x].htmlCompletedButton.setAttribute("class", "completed-button");
+        elements[x].append(toDoList[x].htmlCompletedButton);
 
-        toDoList[i].htmlRemoveButton = document.createElement("td");
-        toDoList[i].htmlRemoveButton.setAttribute("class", "delete-button");
-        toDoList[i].htmlRemoveButton.innerHTML = "X";
-        elements[i].append(toDoList[i].htmlRemoveButton);
+        toDoList[x].htmlCheckImage = document.createElement("img");
+        toDoList[x].htmlCheckImage.src = "images/check.png";
+        toDoList[x].htmlCheckImage.setAttribute("class", "check");
+        completedButtons[x].append(toDoList[x].htmlCheckImage);
+
+        toDoList[x].htmlRemoveButton = document.createElement("td");
+        toDoList[x].htmlRemoveButton.setAttribute("class", "remove-button");
+        toDoList[x].htmlRemoveButton.innerHTML = "X";
+        elements[x].append(toDoList[x].htmlRemoveButton);
     }
-    document.getElementById("user-input").value = "";
-}
+    document.getElementById("add-input").value = "";
+};
