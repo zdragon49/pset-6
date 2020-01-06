@@ -16,6 +16,12 @@ window.onload = function() {
     document.getElementById("add-input").onclick = createTask;
 }
 
+document.addEventListener("keyup", function(pressEnter) {
+  if (pressEnter.keyCode === 13) {
+    createTask();
+  }
+});
+
 const functionMod = function() {
     itemImportant();
     completedItem();
@@ -27,26 +33,26 @@ const itemImportant = function() {
 
     for (let i = 0; i < priorityButtons.length; i++) {
         priorityButtons[i].onclick = function() {
-            if (items[i].prioritized === false) {
+            if (toDoList[i].prioritized === false) {
                 const elementToPrioritize = elements[i];
                 priorityButtons[i].style.color = "red";
                 elements[0].before(elementToPrioritize);
-                items[i].prioritized = true;
+                toDoList[i].prioritized = true;
 
-                const objectToMove = items[i];
-                items.splice(i, 1);
-                items.unshift(objectToMove);
+                const objectToMove = toDoList[i];
+                toDoList.splice(i, 1);
+                toDoList.unshift(objectToMove);
                 priorityChanged = true;
             }
-            else if (items[i].prioritized) {
+            else if (toDoList[i].prioritized) {
                 const elementToPrioritize = elements[i];
                 priorityButtons[i].style.color = "black";
                 elements[elements.length - 1].after(elementToPrioritize);
-                items[i].prioritized = false;
+                toDoList[i].prioritized = false;
 
-                const objectToMove = items[i];
-                items.splice(i, 1);
-                items.push(objectToMove);
+                const objectToMove = toDoList[i];
+                toDoList.splice(i, 1);
+                toDoList.push(objectToMove);
                 priorityChanged = true;
             }
         };
@@ -63,22 +69,20 @@ const completedItem = function() {
     for (let i = 0; i < completedButtons.length; i++) {
         completedButtons[i].onclick = function() {
             if (toDoList[i].completed === false) {
-                completedButtons[i].style.setProperty("text-decoration", "line-through");
+                text[i].style.setProperty("text-decoration", "line-through");
                 toDoList[i].completed = true;
             }
             else if (toDoList[i].completed) {
-                completedButtons[i].style.setProperty("text-decoration", "none");
+                text[i].style.setProperty("text-decoration", "none");
                 toDoList[i].completed = false;
             }
-        }
-
-        completedButtons[i].onclick;
+        };
 
         if (priorityChanged) {
             break;
         }
     }
-}
+};
 
 const goneItem = function() {
     itemRemoved = false;
@@ -141,9 +145,9 @@ const createTask = function() {
         completedButtons[x].append(toDoList[x].htmlCheckImage);
 
         toDoList[x].htmlRemoveButton = document.createElement("td");
-        toDoList[x].htmlRemoveButton.setAttribute("class", "remove-button");
+        toDoList[x].htmlRemoveButton.setAttribute("class", "delete-button");
         toDoList[x].htmlRemoveButton.innerHTML = "X";
         elements[x].append(toDoList[x].htmlRemoveButton);
     }
-    document.getElementById("add-input").value = "";
+    document.getElementById("user-input").value = "";
 };
