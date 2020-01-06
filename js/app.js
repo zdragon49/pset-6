@@ -48,15 +48,18 @@ const createTask = function() {
        toDoList[i].htmlPriorityButton = document.createElement("td");
         toDoList[i].htmlPriorityButton.setAttribute("class", "priority-button");
         toDoList[i].htmlPriorityButton.innerHTML = "!";
+        elements[i].append(toDoList[i].htmlPriorityButton);
 
         toDoList[i].htmlText = document.createElement("td");
         toDoList[i].htmlText.innerHTML = toDoList[i].task;
         toDoList[i].htmlText.setAttribute("class", "completed-button");
+        elements[i].append(toDoList[i].htmlText);
 
 
         toDoList[i].htmlRemoveButton = document.createElement("td");
         toDoList[i].htmlRemoveButton.setAttribute("class", "delete-button");
         toDoList[i].htmlRemoveButton.innerHTML = "X";
+        elements[i].append(toDoList[i].htmlRemoveButton);
     }
     document.getElementById("user-input").value = "";
 }
